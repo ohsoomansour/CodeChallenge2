@@ -47,7 +47,7 @@ ReactDOM.render(
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>
           <App />
-        <ReactQueryDevtools initialIsOpen={false} />  
+      <ReactQueryDevtools initialIsOpen={true} />  
     </QueryClientProvider>
   </RecoilRoot>,
 document.getElementById("root")

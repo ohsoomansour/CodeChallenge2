@@ -37,8 +37,6 @@ interface RouteParams {
   coinId: string;
 }
 
-
-
 export default function Price() {
   
   const { coinId } = useParams<RouteParams>();

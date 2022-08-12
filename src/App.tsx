@@ -86,16 +86,16 @@ import { darkAtom } from './atoms';
     git add . (전체하는게 편함 )
     git commit -m "second commit" 
     git remote -v : 내가 설정해둔 원격저장소 이름과 URL을 확인 할 수 있음 
-    (생략)git remote add origin https://github.com/ohsoomansour/soo.git > error: remote origin already exists.
+    git remote add origin https://github.com/ohsoomansour/soo.git > error: remote origin already exists.
     > git remote rm origin: "🚧연결이 잘못되었으면 연결을 해제함🚧"
     git push -u origin main
 
   ★gh-pages
-  ⓵npm i gh pages > !오류 npm ERR! Cannot read property 'pickAlgorithm' of null > install -g npm@7.24.2
+  ⓵npm install gh-pages --save-dev
   ⓶"scripts": {"deploy": "gh-pages -d build", "predeploy": "npm run build" }
     "homepage": "https://ohsoomansour.github.io/Bitcoin/"
   ⓷npm run build > npm run deploy (published 성공!)
-  
+
 */
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -167,7 +167,7 @@ function App() {
     <ThemeProvider theme={isDark ? darkTheme : lightTheme } >
       <GlobalStyle />
       <Router />
-      </ThemeProvider>  
+    </ThemeProvider>  
     </>
   );
 }
