@@ -1,13 +1,10 @@
 import React from "react";
-import { atom, useRecoilState, useRecoilValue } from "recoil";
-import { Categories, categoryState, NewCategoryState, toDoSelector, toDoState } from "../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { Categories, categoryState, NewCategoryState, toDoSelector } from "../atoms";
 import CreateToDo from "./CreateToDo";
-import NewCategory from "./NewCategoriesFunc";
 import ToDo from "./ToDo";
-import styled from "styled-components";
 import Localfunc from "../Localfunc";
-import NewCategories from "./NewCategoriesFunc";
-import NewCategoriesFunc from "./NewCategoriesFunc";
+import AddCategoriesForm from "./AddCategoriesForm";
 /* 
   1.{...register("toDo")} "반환하는 모든 것 > input의 props로 전달 "
    register 함수는 input의 value, useState, onChange를 대체 
@@ -52,7 +49,7 @@ import NewCategoriesFunc from "./NewCategoriesFunc";
        frequently-viewed-documents: "[{\"url\":\"/ko/docs/Web/API/Web_Storage_API\",\"title\":\"Web Storage API\",\"parents\":[{\"uri\":\"/ko/docs/Web\",\"title\":\"개발자를 위한 웹 기술\"},{\"uri\":\"/ko/docs/Web/API\",\"title\":\"Web API\"},{\"uri\":\"/ko/docs/Web/API/Web_Storage_API\",\"title\":\"Web Storage API\"}],\"timestamp\":1660530567813,\"visitCount\":4},{\"url\":\"/en-US/docs/Web/CSS/background-color\",\"title\":\"background-color\",\"parents\":[{\"uri\":\"/en-US/docs/Web\",\"title\":\"References\"},{\"uri\":\"/en-US/docs/Web/CSS\",\"title\":\"CSS\"},{\"uri\":\"/en-US/docs/Web/CSS/background-color\",\"title\":\"background-color\"}],\"timestamp\":1655962981757,\"visitCount\":3}]"
        theme: "dark"
        length: 2
-      #️⃣Allow users to create custom categories.
+    #️⃣Allow users to create custom categories.
     🔍추론 방법 
       1. localStorage개념을 이해 🔹https://mdn.github.io/dom-examples/web-storage/
       > localStorage.getItem('불러올 데어테에 해당되는 로컬스토리지 키값') > localStorage.getItem('bgcolor') > "5289FF"
@@ -110,9 +107,8 @@ import NewCategoriesFunc from "./NewCategoriesFunc";
       /*{toDos?.map((bToDO) => <NewCategoriesFunc key={bToDO.id} {...bToDO}>{bToDO.category}</NewCategoriesFunc>)}
        */
  
-
 function ToDoList(){
-  const [newCategory, setNewCategory] = useRecoilState(NewCategoryState)
+  const NewCategories = useRecoilValue(NewCategoryState)
   const [category, setCategory] = useRecoilState(categoryState);
   const toDos = useRecoilValue(toDoSelector);
   const onInput = (event:React.FormEvent<HTMLSelectElement>) => {
@@ -121,18 +117,16 @@ function ToDoList(){
 
   return (
     
-    <>
+    <div>
       <Localfunc />
       <hr />
-      <NewCategoriesFunc />
-      
-      
+      <AddCategoriesForm/>
       <hr />
       <select value={category} onInput={onInput}>
         <option value={Categories.TO_DO}>To Do</option>
         <option value={Categories.DOING}>Doing</option>
         <option value={Categories.DONE}>Done</option>
-        {newCategory.map((fuck) => (
+        {NewCategories.map((fuck) => (
           <option value={fuck+ ""}>{fuck+""}</option>
           ))}
       </select>
@@ -140,7 +134,7 @@ function ToDoList(){
       
        {toDos?.map((aToDo) => <ToDo key={aToDo.id} {...aToDo}></ToDo>)}
        
-    </>
+    </div>
   )
 
 }

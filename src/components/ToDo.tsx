@@ -1,8 +1,6 @@
 import React from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { Categories, categoryState, IToDo, NewCategoryState, toDoState } from "../atoms";
-import NewCategoriesFunc from "./NewCategoriesFunc";
-
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { Categories, IToDo, NewCategoryState, toDoState } from "../atoms";
 
 /* 
   [
@@ -39,12 +37,8 @@ import NewCategoriesFunc from "./NewCategoriesFunc";
      3. "reaplce the to do in the index 'oldToDo' with 'newToDo' "
   */
 function ToDo({text, category, id}:IToDo) {
-  const [NewCategories, setNewCategories] = useRecoilState(NewCategoryState)
-  const currentCategory = useRecoilValue(categoryState);
-  const [toDos, setToDos] = useRecoilState(toDoState);
-  //이벤트가 일어났을 때 'newToDo'의 category가 바뀜 + 이벤트가 일어나는 '객체' 기준(id)으로 배열의 순서를 찾음 
-  //oldToDos는 createToDo 에서 만든 최신 toDo까지 있음 따라서 이벤트가 일어난 '새 카테고리'의 id === (과거 ~ 최신,toDO).id
-  //(toDos.filter((toDo) => toDo.category !== currentCategory))
+  const NewCategories = useRecoilValue(NewCategoryState)
+  const setToDos = useSetRecoilState(toDoState);
   
   const onClick = (event:React.FormEvent<HTMLButtonElement>) => {
     const {
@@ -54,28 +48,27 @@ function ToDo({text, category, id}:IToDo) {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id );
       const newToDo = {text:text, id, category: name as any } 
 
-      return [...oldToDos.slice(0, targetIndex), newToDo, ...oldToDos.slice(targetIndex + 1)]
+      return [ 
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1)
+      ]
     } ) 
 
   };
   
-    
+  const CATEGORIES = [...Object.keys(Categories), ...NewCategories]
+  // category 의 기준(todo 만들어 지는 생성 시점)에 따라 '버튼'의 생성이 달라짐    
   return (
-    <>
-    
     <li>
-      <>
       <span>{text}</span>
-      {category !== Categories.TO_DO && (<button name="TO_DO" onClick={onClick}>To Do</button>)}
-      {category !== Categories.DOING && <button name="DOING" onClick={onClick}>Doing</button>}
-      {category !== Categories.DONE  && <button name="DONE" onClick={onClick}>Done</button>}
-      { category !== currentCategory && NewCategories.map((todo, index) =>
-      (<button key={ index} name={todo+""} onClick={onClick}>{todo+""}</button>))
-       }
-     </>       
+        {CATEGORIES.map(
+          (key: any, index:number) => 
+          category !== key && (
+            <button key={`button-${index}`} name={key} onClick={onClick}> {key}</button>
+          )
+        )}
     </li>
-       
-  </>
   )
 }
 export default ToDo;

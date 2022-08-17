@@ -1,4 +1,4 @@
-import {atom, selector, useRecoilValue} from "recoil";
+import {atom, selector} from "recoil";
 
 /*🚨주의사항🚨
   1.recoil 에러발생 :TS2307: Cannot find module 'recoil' or its corresponding type declarations
@@ -29,9 +29,6 @@ export enum Categories {
    "DONE" = "DONE",
    
 }
-
- 
-
 export interface INewCategory {
    NewCategory: string;
 }
