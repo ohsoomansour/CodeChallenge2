@@ -1,12 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import App from './App';
-import { 
-  QueryClient,
-  QueryClientProvider
-     } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RecoilRoot } from 'recoil';
+import {ThemeProvider} from "styled-components";
+import {darkTheme, lightTheme } from "./theme";
 /*reactQuery 설치 오류 ※https://tanstack.com/query/v4/docs/guides/migrating-to-react-query-4
  1. react & react-dom@18.2.0에서 발생하는 오류(※22년 8월 11일에는 17버전도 해결됨)
   > 1) npm i @tanstack/react-query 설치 
@@ -41,14 +38,13 @@ import { RecoilRoot } from 'recoil';
     > 1)  npm i -D @tanstack/react-query-devtools
     > 2) import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
   */     
-const queryClient = new QueryClient()
+
      
 ReactDOM.render(
   <RecoilRoot>
-    <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={darkTheme} >
           <App />
-      <ReactQueryDevtools initialIsOpen={true} />  
-    </QueryClientProvider>
+    </ThemeProvider>
   </RecoilRoot>,
 document.getElementById("root")
 )
