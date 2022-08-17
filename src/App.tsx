@@ -64,7 +64,7 @@ import ToDoList from './components/ToDoList';
     - 🔧🚀"수정된 소스코드들을 > Staging Area로 전달"🚀
     - git add index.html (index.html만 올리겠다)
   git status : 📜📄내가 올릴려고 하는 파일들 나열📃  
-    -  WorkingDirectory에서 📂수정이 발생된 파일들📂을 확인 
+    -  WorkingDirectory에서 📂수정이 발생된 파일들📂을 확인
   git commit -m "first commit" 
     - 최종본이라고 볼 수있음
     - (add된 모든 소코드들을)🚀Staging Area > Local Repositiory로 이동🚀   
